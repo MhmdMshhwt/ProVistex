@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useState, useRef } from 'react';
+import { motion, useAnimationControls } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const techStack = [
@@ -17,35 +18,92 @@ const techStack = [
   { name: 'Rust', color: '#ce412b' },
   { name: 'Go', color: '#00aed8' },
   { name: 'Terraform', color: '#7b42bc' },
-  { name: 'Kafka', color: '#231f20' },
-  { name: 'Elasticsearch', color: '#005571' },
+  { name: 'Kafka', color: '#a0a0a0' },
+  { name: 'Elasticsearch', color: '#00bfb3' },
   { name: 'Next.js', color: '#ffffff' },
   { name: 'Flutter', color: '#54c5f8' },
   { name: 'Swift', color: '#f05138' },
 ];
 
-function MarqueeRow({ items, reverse = false }: { items: typeof techStack; reverse?: boolean }) {
+function TechPill({
+  tech,
+  tooltipText,
+}: {
+  tech: typeof techStack[0];
+  tooltipText: string;
+}) {
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  return (
+    <div
+      className="relative flex-shrink-0"
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+    >
+      <div
+        className="group flex items-center gap-3 px-5 py-3 rounded-xl bg-white/3 border border-white/6 hover:border-white/20 hover:bg-white/6 transition-all cursor-default"
+        style={{ transition: 'border-color 0.2s, background 0.2s' }}
+      >
+        <div
+          className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+          style={{
+            backgroundColor: tech.color,
+            boxShadow: `0 0 8px ${tech.color}70`,
+          }}
+        />
+        <span className="text-gray-400 text-sm font-medium whitespace-nowrap group-hover:text-white transition-colors">
+          {tech.name}
+        </span>
+      </div>
+
+      {showTooltip && (
+        <motion.div
+          initial={{ opacity: 0, y: 6, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 pointer-events-none z-50 whitespace-nowrap"
+        >
+          <div
+            className="px-3 py-1.5 rounded-lg text-xs font-bold border"
+            style={{
+              background: `linear-gradient(135deg, ${tech.color}20, ${tech.color}10)`,
+              borderColor: `${tech.color}40`,
+              color: tech.color,
+            }}
+          >
+            {tooltipText}
+          </div>
+          <div
+            className="w-2 h-2 rotate-45 mx-auto -mt-1"
+            style={{ background: `${tech.color}20`, borderRight: `1px solid ${tech.color}40`, borderBottom: `1px solid ${tech.color}40` }}
+          />
+        </motion.div>
+      )}
+    </div>
+  );
+}
+
+function MarqueeRow({
+  items,
+  reverse = false,
+  paused,
+  tooltipText,
+}: {
+  items: typeof techStack;
+  reverse?: boolean;
+  paused: boolean;
+  tooltipText: string;
+}) {
   const doubled = [...items, ...items];
+
   return (
     <div className="overflow-hidden relative">
       <motion.div
         className="flex gap-4 w-max"
-        animate={{ x: reverse ? ['0%', '50%'] : ['0%', '-50%'] }}
-        transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+        animate={paused ? {} : { x: reverse ? ['0%', '50%'] : ['0%', '-50%'] }}
+        transition={{ duration: 35, repeat: Infinity, ease: 'linear' }}
       >
         {doubled.map((tech, i) => (
-          <div
-            key={`${tech.name}-${i}`}
-            className="group flex items-center gap-3 px-5 py-3 rounded-xl bg-white/3 border border-white/6 hover:border-white/14 hover:bg-white/6 transition-all cursor-default flex-shrink-0"
-          >
-            <div
-              className="w-2.5 h-2.5 rounded-full flex-shrink-0 opacity-80 group-hover:opacity-100 transition-opacity"
-              style={{ backgroundColor: tech.color, boxShadow: `0 0 8px ${tech.color}60` }}
-            />
-            <span className="text-gray-400 text-sm font-medium group-hover:text-gray-200 transition-colors whitespace-nowrap">
-              {tech.name}
-            </span>
-          </div>
+          <TechPill key={`${tech.name}-${i}`} tech={tech} tooltipText={tooltipText} />
         ))}
       </motion.div>
     </div>
@@ -53,14 +111,15 @@ function MarqueeRow({ items, reverse = false }: { items: typeof techStack; rever
 }
 
 export default function TechStackMarquee() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const [paused, setPaused] = useState(false);
   const half = Math.ceil(techStack.length / 2);
   const row1 = techStack.slice(0, half);
   const row2 = techStack.slice(half);
+  const tooltipText = language === 'ar' ? 'معايير المؤسسات الكبرى' : 'Enterprise Grade';
 
   return (
     <section className="relative py-20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-black to-black"></div>
       <div className="absolute inset-0 border-y border-white/4"></div>
 
       <div className="relative z-10 mb-12 text-center px-4">
@@ -69,13 +128,35 @@ export default function TechStackMarquee() {
         <p className="text-gray-500 text-sm">{t('techstack_subtitle')}</p>
       </div>
 
-      <div className="relative z-10 space-y-4">
-        <div className="absolute inset-y-0 start-0 w-32 bg-gradient-to-e from-black to-transparent z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #050505, transparent)' }}></div>
-        <div className="absolute inset-y-0 end-0 w-32 bg-gradient-to-s from-black to-transparent z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #050505, transparent)' }}></div>
+      <div
+        className="relative z-10 space-y-4"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        <div
+          className="absolute inset-y-0 start-0 w-32 z-10 pointer-events-none"
+          style={{ background: 'linear-gradient(to right, #050505, transparent)' }}
+        />
+        <div
+          className="absolute inset-y-0 end-0 w-32 z-10 pointer-events-none"
+          style={{ background: 'linear-gradient(to left, #050505, transparent)' }}
+        />
 
-        <MarqueeRow items={row1} />
-        <MarqueeRow items={row2} reverse />
+        <MarqueeRow items={row1} paused={paused} tooltipText={tooltipText} />
+        <MarqueeRow items={row2} reverse paused={paused} tooltipText={tooltipText} />
       </div>
+
+      {paused && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="relative z-10 text-center mt-6"
+        >
+          <span className="text-xs text-cyan-500 font-mono opacity-50">
+            {language === 'ar' ? '— معايير المؤسسات الكبرى —' : '— Enterprise Grade Technologies —'}
+          </span>
+        </motion.div>
+      )}
     </section>
   );
 }

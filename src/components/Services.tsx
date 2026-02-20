@@ -1,4 +1,4 @@
-import { useRef, lazy, Suspense } from 'react';
+import { useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Code2, Brain, Shield, Cloud } from 'lucide-react';
@@ -11,31 +11,37 @@ interface WingCardProps {
   descriptionKey: string;
   tags: string[];
   gradient: string;
+  glowColor: string;
   index: number;
 }
 
-function WingCard({ num, Icon, titleKey, shortKey, descriptionKey, tags, gradient, index }: WingCardProps) {
-  const { t } = useLanguage();
+function WingCard({ num, Icon, titleKey, shortKey, descriptionKey, tags, gradient, glowColor, index }: WingCardProps) {
+  const { t, language } = useLanguage();
   const cardRef = useRef<HTMLDivElement>(null);
+  const [spotlight, setSpotlight] = useState({ x: 50, y: 50, visible: false });
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 180, damping: 18 });
   const sy = useSpring(y, { stiffness: 180, damping: 18 });
-  const rotateX = useTransform(sy, [-0.5, 0.5], [6, -6]);
-  const rotateY = useTransform(sx, [-0.5, 0.5], [-6, 6]);
+  const rotateX = useTransform(sy, [-0.5, 0.5], [5, -5]);
+  const rotateY = useTransform(sx, [-0.5, 0.5], language === 'ar' ? [5, -5] : [-5, 5]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = cardRef.current;
     if (!card) return;
     const rect = card.getBoundingClientRect();
-    x.set((e.clientX - rect.left) / rect.width - 0.5);
-    y.set((e.clientY - rect.top) / rect.height - 0.5);
+    const relX = (e.clientX - rect.left) / rect.width;
+    const relY = (e.clientY - rect.top) / rect.height;
+    x.set(relX - 0.5);
+    y.set(relY - 0.5);
+    setSpotlight({ x: relX * 100, y: relY * 100, visible: true });
   };
 
   const handleMouseLeave = () => {
     x.set(0);
     y.set(0);
+    setSpotlight((s) => ({ ...s, visible: false }));
   };
 
   return (
@@ -50,9 +56,19 @@ function WingCard({ num, Icon, titleKey, shortKey, descriptionKey, tags, gradien
       onMouseLeave={handleMouseLeave}
       className="group relative"
     >
-      <div className={`absolute -inset-px bg-gradient-to-r ${gradient} rounded-3xl blur-sm opacity-0 group-hover:opacity-50 transition-opacity duration-500`}></div>
-      <div className="relative p-8 rounded-3xl bg-[#0a0a0a] border border-white/8 group-hover:border-white/16 transition-all duration-300 h-full flex flex-col">
-        <div className="flex items-start justify-between mb-6">
+      <div className={`absolute -inset-px bg-gradient-to-r ${gradient} rounded-3xl blur-sm opacity-0 group-hover:opacity-40 transition-opacity duration-500`}></div>
+
+      <div className="relative overflow-hidden p-8 rounded-3xl bg-[#0a0a0a] border border-white/8 group-hover:border-white/16 transition-all duration-300 h-full flex flex-col">
+        {spotlight.visible && (
+          <div
+            className="absolute inset-0 pointer-events-none transition-opacity duration-200 z-0"
+            style={{
+              background: `radial-gradient(320px circle at ${spotlight.x}% ${spotlight.y}%, ${glowColor}20, transparent 70%)`,
+            }}
+          />
+        )}
+
+        <div className="relative z-10 flex items-start justify-between mb-6">
           <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${gradient} p-px group-hover:scale-105 transition-transform duration-500`}>
             <div className="w-full h-full bg-[#0a0a0a] rounded-2xl flex items-center justify-center">
               <Icon className="w-7 h-7 text-white" />
@@ -61,24 +77,24 @@ function WingCard({ num, Icon, titleKey, shortKey, descriptionKey, tags, gradien
           <span className="text-xs text-gray-700 font-mono group-hover:text-gray-500 transition-colors">WING {num}</span>
         </div>
 
-        <h3 className="text-2xl font-black text-white mb-1 group-hover:text-cyan-400 transition-colors leading-tight">
+        <h3 className="relative z-10 text-2xl font-black text-white mb-1 group-hover:text-cyan-400 transition-colors leading-tight">
           {t(titleKey)}
         </h3>
-        <p className="text-xs text-gray-600 font-mono mb-4 group-hover:text-gray-500 transition-colors">{t(shortKey)}</p>
+        <p className="relative z-10 text-xs text-gray-600 font-mono mb-4 group-hover:text-gray-500 transition-colors">{t(shortKey)}</p>
 
-        <p className="text-gray-400 text-sm leading-relaxed flex-grow group-hover:text-gray-300 transition-colors mb-6">
+        <p className="relative z-10 text-gray-400 text-sm leading-relaxed flex-grow group-hover:text-gray-300 transition-colors mb-6">
           {t(descriptionKey)}
         </p>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="relative z-10 flex flex-wrap gap-2">
           {tags.map((tag) => (
-            <span key={tag} className={`px-3 py-1 text-xs font-medium rounded-full bg-gradient-to-r ${gradient} bg-opacity-10 border border-white/8 text-gray-400 group-hover:text-gray-300 transition-colors`}>
+            <span key={tag} className="px-3 py-1 text-xs font-medium rounded-full border border-white/8 text-gray-400 group-hover:text-gray-300 group-hover:border-white/14 transition-all">
               {tag}
             </span>
           ))}
         </div>
 
-        <div className={`absolute top-0 end-0 w-32 h-32 rounded-full bg-gradient-to-br ${gradient} opacity-5 blur-2xl group-hover:opacity-15 transition-opacity`}></div>
+        <div className={`absolute top-0 end-0 w-40 h-40 rounded-full bg-gradient-to-br ${gradient} opacity-5 blur-3xl group-hover:opacity-10 transition-opacity pointer-events-none`}></div>
       </div>
     </motion.div>
   );
@@ -92,25 +108,33 @@ export default function Services() {
       num: '01', Icon: Code2,
       titleKey: 'wing1_title', shortKey: 'wing1_short', descriptionKey: 'wing1_description',
       tags: ['wing1_tag1', 'wing1_tag2', 'wing1_tag3', 'wing1_tag4'],
-      gradient: 'from-cyan-500 to-blue-600', index: 0,
+      gradient: 'from-cyan-500 to-blue-600',
+      glowColor: '#06b6d4',
+      index: 0,
     },
     {
       num: '02', Icon: Brain,
       titleKey: 'wing2_title', shortKey: 'wing2_short', descriptionKey: 'wing2_description',
       tags: ['wing2_tag1', 'wing2_tag2', 'wing2_tag3', 'wing2_tag4'],
-      gradient: 'from-purple-500 to-pink-600', index: 1,
+      gradient: 'from-purple-500 to-pink-600',
+      glowColor: '#a855f7',
+      index: 1,
     },
     {
       num: '03', Icon: Shield,
       titleKey: 'wing3_title', shortKey: 'wing3_short', descriptionKey: 'wing3_description',
       tags: ['wing3_tag1', 'wing3_tag2', 'wing3_tag3', 'wing3_tag4'],
-      gradient: 'from-red-500 to-orange-500', index: 2,
+      gradient: 'from-red-500 to-orange-500',
+      glowColor: '#ef4444',
+      index: 2,
     },
     {
       num: '04', Icon: Cloud,
       titleKey: 'wing4_title', shortKey: 'wing4_short', descriptionKey: 'wing4_description',
       tags: ['wing4_tag1', 'wing4_tag2', 'wing4_tag3', 'wing4_tag4'],
-      gradient: 'from-blue-500 to-cyan-600', index: 3,
+      gradient: 'from-blue-500 to-cyan-600',
+      glowColor: '#3b82f6',
+      index: 3,
     },
   ];
 

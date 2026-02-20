@@ -7,11 +7,12 @@ import Hero from './components/Hero';
 const About = lazy(() => import('./components/About'));
 const Statistics = lazy(() => import('./components/Statistics'));
 const Services = lazy(() => import('./components/Services'));
+const FeaturedEmpires = lazy(() => import('./components/FeaturedEmpires'));
+const LabProcess = lazy(() => import('./components/LabProcess'));
 const SolutionsGrid = lazy(() => import('./components/SolutionsGrid'));
 const TechStackMarquee = lazy(() => import('./components/TechStackMarquee'));
 const GlobalReach = lazy(() => import('./components/GlobalReach'));
 const SolutionFinder = lazy(() => import('./components/SolutionFinder'));
-const Portfolio = lazy(() => import('./components/Portfolio'));
 const TrustedBy = lazy(() => import('./components/TrustedBy'));
 const Blog = lazy(() => import('./components/Blog'));
 const Contact = lazy(() => import('./components/Contact'));
@@ -44,6 +45,12 @@ function App() {
         <Services />
       </Suspense>
       <Suspense fallback={<SectionFallback />}>
+        <FeaturedEmpires />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <LabProcess />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
         <SolutionsGrid />
       </Suspense>
       <Suspense fallback={<SectionFallback />}>
@@ -54,9 +61,6 @@ function App() {
       </Suspense>
       <Suspense fallback={<SectionFallback />}>
         <SolutionFinder />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <Portfolio />
       </Suspense>
       <Suspense fallback={<SectionFallback />}>
         <TrustedBy />

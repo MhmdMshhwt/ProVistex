@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X, Globe, ChevronDown, Code2, Brain, Shield, Cloud } from 'lucide-react';
+import { Menu, X, Globe, ChevronDown, Code2, Brain, Shield, Cloud, CalendarCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -148,6 +148,38 @@ export default function Navigation() {
                   )}
                 </AnimatePresence>
               </div>
+
+              <button
+                onClick={() => document.querySelector('#finder')?.scrollIntoView({ behavior: 'smooth' })}
+                className="relative group flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold text-white overflow-hidden"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(6,182,212,0.15), rgba(147,51,234,0.15))',
+                  border: '1px solid transparent',
+                  backgroundClip: 'padding-box',
+                }}
+              >
+                <div className="absolute inset-0 rounded-xl border border-transparent"
+                  style={{
+                    background: 'linear-gradient(135deg, #06b6d4, #9333ea) border-box',
+                    WebkitMask: 'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)',
+                    WebkitMaskComposite: 'destination-out',
+                    maskComposite: 'exclude',
+                    animation: 'border-glow 2s ease-in-out infinite',
+                  }} />
+                <motion.div
+                  className="absolute inset-0 rounded-xl"
+                  animate={{
+                    background: [
+                      'linear-gradient(135deg, rgba(6,182,212,0.15), rgba(147,51,234,0.15))',
+                      'linear-gradient(135deg, rgba(6,182,212,0.25), rgba(147,51,234,0.25))',
+                      'linear-gradient(135deg, rgba(6,182,212,0.15), rgba(147,51,234,0.15))',
+                    ],
+                  }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
+                <CalendarCheck className="w-4 h-4 relative z-10 text-cyan-400" />
+                <span className="relative z-10 text-white">{language === 'ar' ? 'احجز استشارة' : 'Book a Lab Consultation'}</span>
+              </button>
 
               <button
                 onClick={toggleLanguage}
