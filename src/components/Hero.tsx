@@ -122,7 +122,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15 }}
-          className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-4 leading-tight tracking-tight"
+          className="text-4xl sm:text-6xl lg:text-7xl font-black text-white mb-4 leading-tight tracking-tight"
         >
           {t('hero_title')}
           <br />
@@ -135,7 +135,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.35 }}
-          className="text-2xl sm:text-3xl font-bold text-gray-300 mb-12 h-10 flex items-center justify-center gap-3"
+          className="text-xl sm:text-3xl font-bold text-gray-300 mb-8 sm:mb-12 h-10 flex items-center justify-center gap-3"
         >
           <span className="text-gray-500 font-normal text-xl">{t('hero_typewriter_prefix')}</span>
           <span className="text-cyan-400 font-black tabular-nums min-w-[120px] text-start rtl:text-end">
@@ -148,11 +148,11 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-14 sm:mb-20"
         >
           <button
             onClick={scrollToServices}
-            className="glow-pulse-btn group relative inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full text-white font-bold text-base overflow-hidden"
+            className="glow-pulse-btn group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full text-white font-bold text-base overflow-hidden"
           >
             <span className="relative z-10">{t('hero_cta')}</span>
             <ChevronRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" />
@@ -161,7 +161,7 @@ export default function Hero() {
 
           <button
             onClick={() => document.querySelector('#finder')?.scrollIntoView({ behavior: 'smooth' })}
-            className="group inline-flex items-center gap-2 px-8 py-4 rounded-full border border-cyan-500/40 text-cyan-400 font-semibold text-base hover:border-cyan-500 hover:bg-cyan-500/10 transition-all"
+            className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-cyan-500/40 text-cyan-400 font-semibold text-base hover:border-cyan-500 hover:bg-cyan-500/10 transition-all"
           >
             {language === 'ar' ? 'محدد الحل الأمثل' : 'Solution Finder'}
             <ChevronRight className="w-4 h-4 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" />

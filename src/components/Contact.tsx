@@ -174,7 +174,7 @@ export default function Contact() {
     'w-full px-4 py-3 bg-white/3 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-cyan-500/60 focus:bg-cyan-500/3 transition-all text-sm';
 
   return (
-    <section id="contact" className="relative py-32 overflow-hidden">
+    <section id="contact" className="relative py-20 sm:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-950/8 to-black"></div>
       <div className="absolute bottom-0 start-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"></div>
 
@@ -189,8 +189,8 @@ export default function Contact() {
           <div className="text-xs text-cyan-500 font-mono uppercase tracking-widest mb-4 opacity-70">
             PROJECT INITIATION PORTAL
           </div>
-          <h2 className="text-5xl font-black text-white mb-4">{t('contact_title')}</h2>
-          <p className="text-xl text-gray-400 mb-8">{t('contact_subtitle')}</p>
+          <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">{t('contact_title')}</h2>
+          <p className="text-lg sm:text-xl text-gray-400 mb-8">{t('contact_subtitle')}</p>
           <div className="w-24 h-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent mx-auto"></div>
         </motion.div>
 
@@ -322,7 +322,7 @@ export default function Contact() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     onSubmit={handleSubmit}
-                    className="relative p-8 rounded-2xl bg-black/90 border border-white/8 backdrop-blur-sm space-y-5"
+                    className="relative p-5 sm:p-8 rounded-2xl bg-black/90 border border-white/8 backdrop-blur-sm space-y-4 sm:space-y-5"
                   >
                     <div className="flex items-center gap-3 mb-2">
                       <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center flex-shrink-0">

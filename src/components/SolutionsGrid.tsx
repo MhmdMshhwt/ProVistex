@@ -40,7 +40,7 @@ export default function SolutionsGrid() {
   const filtered = active === 'all' ? solutions : solutions.filter((s) => s.industry === active);
 
   return (
-    <section id="solutions" className="relative py-32 overflow-hidden">
+    <section id="solutions" className="relative py-20 sm:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-950/10 to-black"></div>
       <div className="absolute top-0 start-0 w-full h-px bg-gradient-to-r from-transparent via-purple-600/50 to-transparent"></div>
 
@@ -55,8 +55,8 @@ export default function SolutionsGrid() {
           <div className="text-xs text-purple-400 font-mono uppercase tracking-widest mb-4 opacity-70">
             INDUSTRY-SPECIFIC
           </div>
-          <h2 className="text-5xl font-black text-white mb-4">{t('solutions_title')}</h2>
-          <p className="text-xl text-gray-400 mb-8">{t('solutions_subtitle')}</p>
+          <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">{t('solutions_title')}</h2>
+          <p className="text-lg sm:text-xl text-gray-400 mb-8">{t('solutions_subtitle')}</p>
           <div className="w-24 h-px bg-gradient-to-r from-transparent via-purple-600 to-transparent mx-auto"></div>
         </motion.div>
 
@@ -82,7 +82,7 @@ export default function SolutionsGrid() {
           ))}
         </motion.div>
 
-        <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <motion.div layout className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           <AnimatePresence mode="popLayout">
             {filtered.map((sol, index) => (
               <motion.div
@@ -96,7 +96,7 @@ export default function SolutionsGrid() {
                 className="group relative"
               >
                 <div className={`absolute -inset-px bg-gradient-to-br ${sol.gradient} rounded-2xl blur-sm opacity-0 group-hover:opacity-40 transition-opacity duration-500`}></div>
-                <div className="relative p-6 rounded-2xl bg-[#0a0a0a] border border-white/8 group-hover:border-white/14 h-full flex flex-col transition-all">
+                <div className="relative p-4 sm:p-6 rounded-2xl bg-[#0a0a0a] border border-white/8 group-hover:border-white/14 h-full flex flex-col transition-all">
                   <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${sol.gradient} p-px mb-4 group-hover:scale-110 transition-transform flex-shrink-0`}>
                     <div className="w-full h-full bg-[#0a0a0a] rounded-xl flex items-center justify-center">
                       <sol.Icon className="w-5 h-5 text-white" />

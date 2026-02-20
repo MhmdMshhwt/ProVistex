@@ -58,7 +58,7 @@ function WingCard({ num, Icon, titleKey, shortKey, descriptionKey, tags, gradien
     >
       <div className={`absolute -inset-px bg-gradient-to-r ${gradient} rounded-3xl blur-sm opacity-0 group-hover:opacity-40 transition-opacity duration-500`}></div>
 
-      <div className="relative overflow-hidden p-8 rounded-3xl bg-[#0a0a0a] border border-white/8 group-hover:border-white/16 transition-all duration-300 h-full flex flex-col">
+      <div className="relative overflow-hidden p-6 sm:p-8 rounded-3xl bg-[#0a0a0a] border border-white/8 group-hover:border-white/16 transition-all duration-300 h-full flex flex-col">
         {spotlight.visible && (
           <div
             className="absolute inset-0 pointer-events-none transition-opacity duration-200 z-0"
@@ -77,7 +77,7 @@ function WingCard({ num, Icon, titleKey, shortKey, descriptionKey, tags, gradien
           <span className="text-xs text-gray-700 font-mono group-hover:text-gray-500 transition-colors">WING {num}</span>
         </div>
 
-        <h3 className="relative z-10 text-2xl font-black text-white mb-1 group-hover:text-cyan-400 transition-colors leading-tight">
+        <h3 className="relative z-10 text-xl sm:text-2xl font-black text-white mb-1 group-hover:text-cyan-400 transition-colors leading-tight">
           {t(titleKey)}
         </h3>
         <p className="relative z-10 text-xs text-gray-600 font-mono mb-4 group-hover:text-gray-500 transition-colors">{t(shortKey)}</p>
@@ -139,7 +139,7 @@ export default function Services() {
   ];
 
   return (
-    <section id="services" className="relative py-32 overflow-hidden">
+    <section id="services" className="relative py-20 sm:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-black via-cyan-950/8 to-black"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -153,8 +153,8 @@ export default function Services() {
           <div className="text-xs text-cyan-500 font-mono uppercase tracking-widest mb-4 opacity-70">
             MULTI-DEPARTMENTAL STRUCTURE
           </div>
-          <h2 className="text-5xl font-black text-white mb-4">{t('wings_title')}</h2>
-          <p className="text-xl text-gray-400 mb-8">{t('wings_subtitle')}</p>
+          <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">{t('wings_title')}</h2>
+          <p className="text-lg sm:text-xl text-gray-400 mb-8">{t('wings_subtitle')}</p>
           <div className="w-24 h-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent mx-auto"></div>
         </motion.div>
 

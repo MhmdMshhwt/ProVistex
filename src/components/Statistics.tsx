@@ -75,7 +75,7 @@ export default function Statistics() {
       <div className="absolute inset-0 bg-gradient-to-b from-black via-cyan-950/10 to-black"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-3 gap-5 sm:gap-8">
           {stats.map((stat, index) => (
             <motion.div
               key={index}
@@ -88,14 +88,14 @@ export default function Statistics() {
             >
               <div className={`absolute -inset-0.5 bg-gradient-to-r ${stat.gradient} rounded-3xl blur opacity-20 group-hover:opacity-50 transition-opacity duration-500`}></div>
 
-              <div className="relative p-8 rounded-3xl bg-black border border-cyan-500/20 text-center group-hover:border-cyan-500/40 transition-all">
+              <div className="relative p-6 sm:p-8 rounded-3xl bg-black border border-cyan-500/20 text-center group-hover:border-cyan-500/40 transition-all">
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${stat.gradient} p-0.5 mx-auto mb-6 group-hover:scale-110 transition-transform duration-500`}>
                   <div className="w-full h-full bg-black rounded-2xl flex items-center justify-center">
                     <stat.icon className="w-8 h-8 text-white" />
                   </div>
                 </div>
 
-                <div className="text-5xl font-black bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent mb-3 tabular-nums">
+                <div className="text-4xl sm:text-5xl font-black bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent mb-3 tabular-nums">
                   <Counter
                     target={stat.value}
                     suffix={stat.suffix}

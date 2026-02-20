@@ -37,8 +37,8 @@ export default function Footer() {
     <footer className="relative overflow-hidden border-t border-white/8">
       <div className="absolute inset-0 bg-gradient-to-b from-black to-[#050510]"></div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10">
-        <div className="grid md:grid-cols-3 gap-12 mb-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-8 sm:pb-10">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-10 sm:gap-12 mb-12 sm:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -107,6 +107,7 @@ export default function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
+            className="sm:col-span-2 md:col-span-1"
           >
             <h3 className="text-white font-bold text-base mb-2">{t('footer_newsletter')}</h3>
             <p className="text-gray-500 text-sm mb-5">{t('footer_newsletter_desc')}</p>
@@ -147,7 +148,7 @@ export default function Footer() {
           </motion.div>
         </div>
 
-        <div className="pt-8 border-t border-white/6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="pt-6 sm:pt-8 border-t border-white/6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-start">
           <p className="text-gray-600 text-xs order-2 md:order-1">{t('footer_rights')}</p>
           <div className="flex items-center gap-2 order-1 md:order-2">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>

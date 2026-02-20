@@ -29,7 +29,7 @@ export default function LabStatus() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, scale: 0.9 }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
-          className="fixed bottom-6 start-6 z-40 select-none"
+          className="fixed bottom-4 start-4 sm:bottom-6 sm:start-6 z-30 select-none"
           style={{ direction: language === 'ar' ? 'rtl' : 'ltr' }}
         >
           <motion.button

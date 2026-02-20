@@ -127,14 +127,14 @@ function CaseCard({ cs, index }: { cs: CaseStudy; index: number }) {
       <div className="absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
         style={{ background: `linear-gradient(135deg, ${cs.gradientFrom}30, ${cs.gradientTo}20)` }} />
 
-      <div className="relative border border-white/8 group-hover:border-white/20 rounded-3xl transition-all duration-300 bg-[#080810] p-8 md:p-10 h-full flex flex-col">
+      <div className="relative border border-white/8 group-hover:border-white/20 rounded-3xl transition-all duration-300 bg-[#080810] p-6 sm:p-8 md:p-10 h-full flex flex-col">
         <div className="flex items-start justify-between mb-6">
           <div>
             <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r ${cs.gradient} bg-opacity-10 border border-white/8 mb-3`}>
               <cs.Icon className="w-3.5 h-3.5 text-white" />
               <span className="text-white text-xs font-semibold">{t(cs.wingKey)}</span>
             </div>
-            <h3 className="text-2xl md:text-3xl font-black text-white leading-tight group-hover:text-transparent group-hover:bg-clip-text transition-all duration-300"
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white leading-tight group-hover:text-transparent group-hover:bg-clip-text transition-all duration-300"
               style={{ backgroundImage: `linear-gradient(135deg, ${cs.gradientFrom}, ${cs.gradientTo})` }}>
               {t(cs.titleKey)}
             </h3>
@@ -152,14 +152,14 @@ function CaseCard({ cs, index }: { cs: CaseStudy; index: number }) {
           {t(cs.descKey)}
         </p>
 
-        <div className="grid grid-cols-3 gap-4 mt-auto">
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-auto">
           {[
             { val: cs.stat1Val, labelKey: cs.stat1LabelKey },
             { val: cs.stat2Val, labelKey: cs.stat2LabelKey },
             { val: cs.stat3Val, labelKey: cs.stat3LabelKey },
           ].map((stat, i) => (
             <div key={i} className="text-center p-3 rounded-xl bg-white/3 border border-white/6 group-hover:border-white/10 transition-all">
-              <div className="text-xl font-black text-white mb-0.5"
+              <div className="text-base sm:text-xl font-black text-white mb-0.5"
                 style={{ color: i === 0 ? cs.gradientFrom : i === 1 ? cs.gradientTo : 'white' }}>
                 {stat.val}
               </div>
@@ -197,7 +197,7 @@ export default function FeaturedEmpires() {
   const { t } = useLanguage();
 
   return (
-    <section id="empires" className="relative py-32 overflow-hidden">
+    <section id="empires" className="relative py-20 sm:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-black via-slate-950/30 to-black"></div>
       <div className="absolute top-0 start-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"></div>
 
@@ -212,8 +212,8 @@ export default function FeaturedEmpires() {
           <div className="text-xs text-cyan-500 font-mono uppercase tracking-widest mb-4 opacity-70">
             CASE STUDIES
           </div>
-          <h2 className="text-5xl font-black text-white mb-4">{t('empires_title')}</h2>
-          <p className="text-xl text-gray-400 mb-8">{t('empires_subtitle')}</p>
+          <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">{t('empires_title')}</h2>
+          <p className="text-lg sm:text-xl text-gray-400 mb-8">{t('empires_subtitle')}</p>
           <div className="w-24 h-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent mx-auto"></div>
         </motion.div>
 

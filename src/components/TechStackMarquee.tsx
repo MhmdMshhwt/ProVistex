@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-import { motion, useAnimationControls } from 'framer-motion';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const techStack = [
@@ -100,7 +100,7 @@ function MarqueeRow({
       <motion.div
         className="flex gap-4 w-max"
         animate={paused ? {} : { x: reverse ? ['0%', '50%'] : ['0%', '-50%'] }}
-        transition={{ duration: 35, repeat: Infinity, ease: 'linear' }}
+        transition={{ duration: typeof window !== 'undefined' && window.innerWidth < 640 ? 20 : 35, repeat: Infinity, ease: 'linear' }}
       >
         {doubled.map((tech, i) => (
           <TechPill key={`${tech.name}-${i}`} tech={tech} tooltipText={tooltipText} />
@@ -134,11 +134,11 @@ export default function TechStackMarquee() {
         onMouseLeave={() => setPaused(false)}
       >
         <div
-          className="absolute inset-y-0 start-0 w-32 z-10 pointer-events-none"
+          className="absolute inset-y-0 start-0 w-12 sm:w-32 z-10 pointer-events-none"
           style={{ background: 'linear-gradient(to right, #050505, transparent)' }}
         />
         <div
-          className="absolute inset-y-0 end-0 w-32 z-10 pointer-events-none"
+          className="absolute inset-y-0 end-0 w-12 sm:w-32 z-10 pointer-events-none"
           style={{ background: 'linear-gradient(to left, #050505, transparent)' }}
         />
 

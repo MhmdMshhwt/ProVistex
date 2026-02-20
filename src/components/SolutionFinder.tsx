@@ -91,7 +91,7 @@ export default function SolutionFinder() {
   );
 
   return (
-    <section id="finder" className="relative py-32 overflow-hidden">
+    <section id="finder" className="relative py-20 sm:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-black via-cyan-950/10 to-black"></div>
       <div className="absolute top-0 start-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"></div>
 
@@ -104,13 +104,13 @@ export default function SolutionFinder() {
           className="text-center mb-12"
         >
           <div className="text-xs text-cyan-500 font-mono uppercase tracking-widest mb-4 opacity-70">HIGH-CONVERSION INQUIRY</div>
-          <h2 className="text-5xl font-black text-white mb-4">{t('finder_title')}</h2>
-          <p className="text-xl text-gray-400">{t('finder_subtitle')}</p>
+          <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">{t('finder_title')}</h2>
+          <p className="text-lg sm:text-xl text-gray-400">{t('finder_subtitle')}</p>
         </motion.div>
 
         <div className="relative">
           <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/15 to-purple-600/15 rounded-3xl blur-xl"></div>
-          <div className="relative rounded-2xl bg-[#080810] border border-cyan-500/20 p-8">
+          <div className="relative rounded-2xl bg-[#080810] border border-cyan-500/20 p-5 sm:p-8">
             <StepIndicator />
 
             <AnimatePresence mode="wait">

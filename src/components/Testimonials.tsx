@@ -89,7 +89,7 @@ function TestimonialCard({ t: item, index }: { t: Testimonial; index: number }) 
         style={{ background: `linear-gradient(135deg, ${item.glowColor}40, transparent)` }}
       />
 
-      <div className="relative h-full overflow-hidden rounded-3xl border border-white/8 group-hover:border-white/16 transition-all duration-300 bg-gradient-to-b from-white/[0.04] to-white/[0.02] backdrop-blur-md flex flex-col p-8">
+      <div className="relative h-full overflow-hidden rounded-3xl border border-white/8 group-hover:border-white/16 transition-all duration-300 bg-gradient-to-b from-white/[0.04] to-white/[0.02] backdrop-blur-md flex flex-col p-6 sm:p-8">
         {spotlight.visible && (
           <div
             className="absolute inset-0 pointer-events-none z-0 transition-opacity duration-200"
@@ -141,7 +141,7 @@ export default function Testimonials() {
   const { t } = useLanguage();
 
   return (
-    <section className="relative py-32 overflow-hidden">
+    <section className="relative py-20 sm:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-black via-emerald-950/6 to-black"></div>
       <div className="absolute top-0 start-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
 
@@ -156,8 +156,8 @@ export default function Testimonials() {
           <div className="text-xs text-cyan-500 font-mono uppercase tracking-widest mb-4 opacity-70">
             CLIENT VOICES
           </div>
-          <h2 className="text-5xl font-black text-white mb-4">{t('testimonials_title')}</h2>
-          <p className="text-xl text-gray-400 mb-8">{t('testimonials_subtitle')}</p>
+          <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">{t('testimonials_title')}</h2>
+          <p className="text-lg sm:text-xl text-gray-400 mb-8">{t('testimonials_subtitle')}</p>
           <div className="w-24 h-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent mx-auto"></div>
         </motion.div>
 

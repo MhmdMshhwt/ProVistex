@@ -13,7 +13,7 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="relative py-32 overflow-hidden">
+    <section id="about" className="relative py-20 sm:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-purple-950/20 via-black to-black"></div>
 
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-50"></div>
@@ -26,7 +26,7 @@ export default function About() {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <h2 className="text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
             {t('about_title')}
           </h2>
           <p className="text-xl text-cyan-400 font-medium mb-8">
@@ -35,7 +35,7 @@ export default function About() {
           <div className="w-24 h-1 bg-gradient-to-r from-cyan-500 to-purple-600 mx-auto rounded-full"></div>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16 sm:mb-20">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -44,8 +44,8 @@ export default function About() {
           >
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/20 to-purple-600/20 rounded-3xl blur-xl"></div>
-              <div className="relative p-8 rounded-2xl bg-gradient-to-br from-cyan-500/5 to-purple-600/5 border border-cyan-500/20 backdrop-blur-sm">
-                <p className="text-gray-300 text-lg leading-relaxed">
+              <div className="relative p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-cyan-500/5 to-purple-600/5 border border-cyan-500/20 backdrop-blur-sm">
+                <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
                   {t('about_description')}
                 </p>
               </div>
@@ -92,22 +92,22 @@ export default function About() {
           className="relative"
         >
           <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-3xl blur opacity-20"></div>
-          <div className="relative p-12 rounded-2xl bg-black border border-cyan-500/30 backdrop-blur-sm">
-            <div className="grid md:grid-cols-3 gap-8">
+          <div className="relative p-8 sm:p-12 rounded-2xl bg-black border border-cyan-500/30 backdrop-blur-sm">
+            <div className="grid grid-cols-3 gap-4 sm:gap-8">
               <div className="text-center">
-                <div className="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent mb-2">
+                <div className="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent mb-2">
                   150+
                 </div>
                 <div className="text-gray-400">{t('about_stats_projects')}</div>
               </div>
               <div className="text-center">
-                <div className="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent mb-2">
+                <div className="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent mb-2">
                   50+
                 </div>
                 <div className="text-gray-400">{t('about_stats_clients')}</div>
               </div>
               <div className="text-center">
-                <div className="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent mb-2">
+                <div className="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent mb-2">
                   98%
                 </div>
                 <div className="text-gray-400">{t('about_stats_success')}</div>
