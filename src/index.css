@@ -23,6 +23,20 @@
   html[lang="ar"] h6 {
     font-family: 'Cairo', sans-serif;
     font-weight: 900;
+    line-height: 1.3;
+  }
+
+  html[lang="ar"] p,
+  html[lang="ar"] li,
+  html[lang="ar"] span,
+  html[lang="ar"] blockquote {
+    line-height: 1.8;
+  }
+
+  html[lang="ar"] .text-sm,
+  html[lang="ar"] .text-xs,
+  html[lang="ar"] .text-base {
+    line-height: 1.7;
   }
 
   html {

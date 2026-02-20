@@ -181,13 +181,16 @@ export default function Navigation() {
                 <span className="relative z-10 text-white">{language === 'ar' ? 'احجز استشارة' : 'Book a Lab Consultation'}</span>
               </button>
 
-              <button
+              <motion.button
                 onClick={toggleLanguage}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm font-medium hover:bg-cyan-500/20 transition-all"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/12 text-gray-300 text-sm font-bold hover:bg-white/10 hover:border-white/20 hover:text-white transition-all"
               >
-                <Globe className="w-3.5 h-3.5" />
-                <span>{language === 'en' ? 'AR' : 'EN'}</span>
-              </button>
+                <Globe className="w-4 h-4" />
+                <span className="font-mono text-xs tracking-wider">{language === 'en' ? 'AR' : 'EN'}</span>
+                <span className="text-gray-600 text-xs hidden sm:block">{language === 'en' ? 'عربي' : 'English'}</span>
+              </motion.button>
             </div>
 
             <button

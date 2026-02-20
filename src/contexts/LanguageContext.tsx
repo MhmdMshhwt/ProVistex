@@ -179,6 +179,27 @@ const translations = {
     footer_newsletter_placeholder: 'Enter your work email',
     footer_newsletter_button: 'Subscribe',
 
+    testimonials_title: 'Voices from the Empire',
+    testimonials_subtitle: 'What our partners say about working with The Tech Lab.',
+    testimonials_stat1: 'Client Satisfaction',
+    testimonials_stat2: 'Average Rating',
+    testimonials_stat3: 'Project Delivery Rate',
+
+    testimonial1_quote: "ProVistex didn't just build an app — they engineered our entire business logic. The AI integration alone increased our transaction throughput by 300% in the first quarter.",
+    testimonial1_name: 'Khalid Al-Rashidi',
+    testimonial1_title: 'CTO',
+    testimonial1_company: 'Gulf FinTech Group',
+
+    testimonial2_quote: "Their scientific methodology is unlike anything we experienced with other vendors. Every decision was data-backed, every delivery was on time. The result speaks for itself: 97% on-time fulfillment.",
+    testimonial2_name: 'Reem Al-Mukhtar',
+    testimonial2_title: 'Head of Digital',
+    testimonial2_company: 'Logistics Arabia',
+
+    testimonial3_quote: "We migrated 12 legacy systems to cloud in 6 weeks — zero downtime, full data sovereignty. The ProVistex team operates with the precision of a military operation. Exceptional.",
+    testimonial3_name: 'Samir Nasser',
+    testimonial3_title: 'Director of IT',
+    testimonial3_company: 'Ministry of Trade',
+
     empires_title: 'Featured Empires',
     empires_subtitle: 'Three case studies. Real impact. Proven at scale.',
     empire_view_study: 'View Full Case Study',
@@ -386,6 +407,27 @@ const translations = {
     footer_newsletter_desc: 'استخبارات تقنية تصل مباشرة إلى صندوق بريدك.',
     footer_newsletter_placeholder: 'أدخل بريدك الإلكتروني المهني',
     footer_newsletter_button: 'اشترك',
+
+    testimonials_title: 'آراء شركاء النجاح',
+    testimonials_subtitle: 'ما يقوله شركاؤنا عن تجربة العمل مع المعمل التقني.',
+    testimonials_stat1: 'رضا العملاء',
+    testimonials_stat2: 'متوسط التقييم',
+    testimonials_stat3: 'نسبة تسليم المشاريع',
+
+    testimonial1_quote: 'لم يبنِ ProVistex تطبيقاً فحسب — بل هندسوا منطق عملنا بالكامل. تكامل الذكاء الاصطناعي وحده رفع إنتاجية معاملاتنا بنسبة 300% في الربع الأول.',
+    testimonial1_name: 'خالد الرشيدي',
+    testimonial1_title: 'المدير التقني',
+    testimonial1_company: 'مجموعة الخليج للتقنية المالية',
+
+    testimonial2_quote: 'منهجيتهم العلمية لا مثيل لها بين جميع الموردين الذين عملنا معهم. كل قرار مبني على بيانات، وكل تسليم في موعده. النتيجة تتحدث عن نفسها: 97% تسليم في الموعد.',
+    testimonial2_name: 'ريم المختار',
+    testimonial2_title: 'رئيسة التحول الرقمي',
+    testimonial2_company: 'لوجستيات عربيا',
+
+    testimonial3_quote: 'رحّلنا 12 نظاماً قديماً إلى السحابة في 6 أسابيع — دون أي انقطاع وبسيادة كاملة على البيانات. فريق ProVistex يعمل بدقة العمليات العسكرية. استثنائي.',
+    testimonial3_name: 'سامر ناصر',
+    testimonial3_title: 'مدير تقنية المعلومات',
+    testimonial3_company: 'وزارة التجارة',
 
     empires_title: 'إمبراطوريات مختارة',
     empires_subtitle: 'ثلاث دراسات حالة. أثر حقيقي. مُثبتة على نطاق واسع.',

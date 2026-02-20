@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import Navigation from './components/Navigation';
 import ScrollProgressBar from './components/ScrollProgressBar';
 import CustomCursor from './components/CustomCursor';
+import LabStatus from './components/LabStatus';
 import Hero from './components/Hero';
 
 const About = lazy(() => import('./components/About'));
@@ -13,6 +14,7 @@ const SolutionsGrid = lazy(() => import('./components/SolutionsGrid'));
 const TechStackMarquee = lazy(() => import('./components/TechStackMarquee'));
 const GlobalReach = lazy(() => import('./components/GlobalReach'));
 const SolutionFinder = lazy(() => import('./components/SolutionFinder'));
+const Testimonials = lazy(() => import('./components/Testimonials'));
 const TrustedBy = lazy(() => import('./components/TrustedBy'));
 const Blog = lazy(() => import('./components/Blog'));
 const Contact = lazy(() => import('./components/Contact'));
@@ -33,6 +35,7 @@ function App() {
       <div className="noise-overlay" />
       <ScrollProgressBar />
       <CustomCursor />
+      <LabStatus />
       <Navigation />
       <Hero />
       <Suspense fallback={<SectionFallback />}>
@@ -61,6 +64,9 @@ function App() {
       </Suspense>
       <Suspense fallback={<SectionFallback />}>
         <SolutionFinder />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <Testimonials />
       </Suspense>
       <Suspense fallback={<SectionFallback />}>
         <TrustedBy />
