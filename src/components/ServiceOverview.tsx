@@ -185,7 +185,7 @@ export default function ServiceOverview() {
           <div className="w-24 h-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent mx-auto"></div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {wings.map((wing) => (
             <WingCard key={wing.num} {...wing} tags={wing.tags.map((k) => t(k))} />
           ))}

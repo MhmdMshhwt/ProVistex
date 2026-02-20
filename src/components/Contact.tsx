@@ -194,7 +194,7 @@ export default function Contact() {
           <div className="w-24 h-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent mx-auto"></div>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <motion.div
             initial={{ opacity: 0, x: language === 'ar' ? 50 : -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -264,7 +264,7 @@ export default function Contact() {
                   {language === 'ar' ? 'ضمان الاستجابة السريعة' : 'Rapid Response Guarantee'}
                 </span>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
                   { val: '< 2h', label: language === 'ar' ? 'أوقات العمل' : 'Business hours' },
                   { val: '< 24h', label: language === 'ar' ? 'خارج ساعات العمل' : 'Off-hours' },
@@ -336,7 +336,7 @@ export default function Contact() {
                       </div>
                     </div>
 
-                    <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <input
                         type="text"
                         name="name"
@@ -357,7 +357,7 @@ export default function Contact() {
                       />
                     </div>
 
-                    <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <input
                         type="tel"
                         name="phone"

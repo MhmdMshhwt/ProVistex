@@ -82,7 +82,7 @@ export default function SolutionsGrid() {
           ))}
         </motion.div>
 
-        <motion.div layout className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           <AnimatePresence mode="popLayout">
             {filtered.map((sol, index) => (
               <motion.div

@@ -234,37 +234,48 @@ export default function Navigation({ onLanguageChange }: NavigationProps) {
           >
             <div className="flex flex-col pt-24 px-6 pb-10">
               {navLinks.map((link, index) => (
-                <motion.button
+                <motion.div
                   key={link.key}
                   initial={{ opacity: 0, x: 30 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.08 }}
-                  onClick={() => scrollToSection(link.href)}
-                  className="text-gray-300 hover:text-cyan-400 py-4 text-base font-medium border-b border-gray-800/60 hover:border-cyan-500/30 transition-all text-start rtl:text-end"
                 >
-                  {t(link.key)}
-                </motion.button>
+                  <Link
+                    to={link.path}
+                    onClick={handleNavClick}
+                    className="block text-gray-300 hover:text-cyan-400 py-4 text-base font-medium border-b border-gray-800/60 hover:border-cyan-500/30 transition-all text-start rtl:text-end"
+                  >
+                    {t(link.key)}
+                  </Link>
+                </motion.div>
               ))}
 
               <div className="mt-5">
                 <div className="text-xs text-cyan-600 font-mono uppercase tracking-widest mb-3 opacity-70">
                   {t('nav_wings_label')}
                 </div>
-                {wings.map((wing, i) => (
-                  <motion.button
-                    key={wing.num}
-                    initial={{ opacity: 0, x: 30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.35 + i * 0.07 }}
-                    onClick={() => scrollToSection('#services')}
-                    className="w-full flex items-center gap-3 py-3 border-b border-gray-800/40 text-gray-400 hover:text-cyan-400 transition-colors text-start rtl:text-end"
-                  >
-                    <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${wing.gradient} flex items-center justify-center flex-shrink-0`}>
-                      <wing.Icon className="w-3.5 h-3.5 text-white" />
-                    </div>
-                    <span className="text-sm font-medium">{t(wing.titleKey)}</span>
-                  </motion.button>
-                ))}
+                {wings.map((wing, i) => {
+                  const wingPaths = ['/services/software-engineering', '/services/ai-intelligence', '/services/cloud-cyber', '/services/digital-design'];
+                  return (
+                    <motion.div
+                      key={wing.num}
+                      initial={{ opacity: 0, x: 30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.35 + i * 0.07 }}
+                    >
+                      <Link
+                        to={wingPaths[parseInt(wing.num) - 1]}
+                        onClick={handleNavClick}
+                        className="flex items-center gap-3 py-3 border-b border-gray-800/40 text-gray-400 hover:text-cyan-400 transition-colors text-start rtl:text-end"
+                      >
+                        <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${wing.gradient} flex items-center justify-center flex-shrink-0`}>
+                          <wing.Icon className="w-3.5 h-3.5 text-white" />
+                        </div>
+                        <span className="text-sm font-medium">{t(wing.titleKey)}</span>
+                      </Link>
+                    </motion.div>
+                  );
+                })}
               </div>
 
               <motion.button

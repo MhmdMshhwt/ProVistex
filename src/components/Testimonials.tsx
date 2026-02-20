@@ -161,7 +161,7 @@ export default function Testimonials() {
           <div className="w-24 h-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent mx-auto"></div>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {testimonials.map((item, i) => (
             <TestimonialCard key={i} t={item} index={i} />
           ))}

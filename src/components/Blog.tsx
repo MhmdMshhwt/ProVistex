@@ -63,7 +63,7 @@ export default function Blog() {
           <div className="w-24 h-1 bg-gradient-to-r from-cyan-500 to-purple-600 mx-auto rounded-full"></div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {posts.map((post, index) => (
             <motion.article
               key={post.id}

@@ -75,7 +75,7 @@ export default function Statistics() {
       <div className="absolute inset-0 bg-gradient-to-b from-black via-cyan-950/10 to-black"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid sm:grid-cols-3 gap-5 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-8">
           {stats.map((stat, index) => (
             <motion.div
               key={index}

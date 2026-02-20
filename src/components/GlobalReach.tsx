@@ -150,7 +150,7 @@ export default function GlobalReach() {
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-8">
           {mapPoints.map((point, i) => (
             <motion.div
               key={point.id}

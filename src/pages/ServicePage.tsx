@@ -69,7 +69,7 @@ export default function ServicePage({
             <div className="w-20 h-px bg-gradient-to-r from-cyan-500 to-transparent mb-8"></div>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {capabilitiesKeys.map((key, i) => (
               <motion.div
                 key={key}

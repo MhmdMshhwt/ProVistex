@@ -136,7 +136,7 @@ export default function LabProcess() {
             ))}
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
             {steps.map((step, i) => (
               <StepNode key={step.num} step={step} index={i} />
             ))}

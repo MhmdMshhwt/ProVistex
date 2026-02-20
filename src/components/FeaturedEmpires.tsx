@@ -217,7 +217,7 @@ export default function FeaturedEmpires() {
           <div className="w-24 h-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent mx-auto"></div>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {cases.map((cs, i) => (
             <CaseCard key={cs.id} cs={cs} index={i} />
           ))}
