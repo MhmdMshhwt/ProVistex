@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#050505] text-white antialiased;
+  }
+
+  html[lang="en"] body {
+    font-family: 'Inter', sans-serif;
+  }
+
+  html[lang="ar"] body {
+    font-family: 'Cairo', sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .delay-1000 {
+    animation-delay: 1000ms;
+  }
+}
