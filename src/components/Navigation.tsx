@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Globe, ChevronDown, Code2, Brain, Shield, Cloud, CalendarCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const wingGradients = [
   'from-cyan-500 to-blue-600',
@@ -10,12 +12,25 @@ const wingGradients = [
   'from-blue-500 to-cyan-600',
 ];
 
-export default function Navigation() {
+interface NavigationProps {
+  onLanguageChange?: (lang: 'en' | 'ar') => void;
+}
+
+export default function Navigation({ onLanguageChange }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const { language, toggleLanguage, t } = useLanguage();
+  const location = useLocation();
   const megaRef = useRef<HTMLDivElement>(null);
+
+  const handleLanguageToggle = () => {
+    toggleLanguage();
+    if (onLanguageChange) {
+      const newLang = language === 'en' ? 'ar' : 'en';
+      onLanguageChange(newLang);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -43,19 +58,15 @@ export default function Navigation() {
   ];
 
   const navLinks = [
-    { key: 'nav_home', href: '#home' },
-    { key: 'nav_about', href: '#about' },
-    { key: 'nav_solutions', href: '#solutions' },
-    { key: 'nav_contact', href: '#contact' },
+    { key: 'nav_home', path: '/' },
+    { key: 'nav_services', path: '/services' },
+    { key: 'nav_solutions', path: '/portfolio' },
+    { key: 'nav_contact', path: '/contact' },
   ];
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
-      setIsMegaMenuOpen(false);
-    }
+  const handleNavClick = () => {
+    setIsMobileMenuOpen(false);
+    setIsMegaMenuOpen(false);
   };
 
   return (
@@ -71,25 +82,28 @@ export default function Navigation() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            <motion.div className="flex items-center gap-2" whileHover={{ scale: 1.04 }}>
-              <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-black text-base">PV</span>
-              </div>
-              <span className="text-white font-black text-xl tracking-tight">
-                Pro<span className="text-cyan-400">Vistex</span>
-              </span>
-            </motion.div>
+            <Link to="/" onClick={handleNavClick}>
+              <motion.div className="flex items-center gap-2 cursor-pointer" whileHover={{ scale: 1.04 }}>
+                <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-black text-base">PV</span>
+                </div>
+                <span className="text-white font-black text-xl tracking-tight">
+                  Pro<span className="text-cyan-400">Vistex</span>
+                </span>
+              </motion.div>
+            </Link>
 
             <div className="hidden md:flex items-center gap-6">
               {navLinks.map((link) => (
-                <button
+                <Link
                   key={link.key}
-                  onClick={() => scrollToSection(link.href)}
+                  to={link.path}
+                  onClick={handleNavClick}
                   className="text-gray-300 hover:text-cyan-400 transition-colors duration-200 font-medium text-sm relative group"
                 >
                   {t(link.key)}
                   <span className="absolute -bottom-0.5 start-0 w-0 h-px bg-gradient-to-r from-cyan-500 to-purple-600 group-hover:w-full transition-all duration-300"></span>
-                </button>
+                </Link>
               ))}
 
               <div ref={megaRef} className="relative">
@@ -116,12 +130,15 @@ export default function Navigation() {
                           {t('nav_wings_label')}
                         </div>
                         <div className="grid grid-cols-2 gap-2">
-                          {wings.map((wing) => (
-                            <button
-                              key={wing.num}
-                              onClick={() => scrollToSection('#services')}
-                              className="group text-start rtl:text-end flex items-start gap-3 p-3.5 rounded-xl hover:bg-white/4 border border-transparent hover:border-cyan-500/20 transition-all"
-                            >
+                          {wings.map((wing, idx) => {
+                            const wingPaths = ['/services/software-engineering', '/services/ai-intelligence', '/services/cloud-cyber', '/services/digital-design'];
+                            return (
+                              <Link
+                                key={wing.num}
+                                to={wingPaths[parseInt(wing.num) - 1]}
+                                onClick={handleNavClick}
+                                className="group text-start rtl:text-end flex items-start gap-3 p-3.5 rounded-xl hover:bg-white/4 border border-transparent hover:border-cyan-500/20 transition-all"
+                              >
                               <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${wing.gradient} p-px flex-shrink-0 group-hover:scale-105 transition-transform`}>
                                 <div className="w-full h-full bg-black/80 rounded-lg flex items-center justify-center">
                                   <wing.Icon className="w-4 h-4 text-white" />
@@ -132,16 +149,18 @@ export default function Navigation() {
                                 <div className="text-white font-bold text-sm group-hover:text-cyan-400 transition-colors truncate">{t(wing.titleKey)}</div>
                                 <div className="text-gray-500 text-xs mt-0.5 truncate">{t(wing.shortKey)}</div>
                               </div>
-                            </button>
-                          ))}
+                              </Link>
+                            );
+                          })}
                         </div>
                         <div className="mt-3 pt-3 border-t border-cyan-500/10">
-                          <button
-                            onClick={() => scrollToSection('#finder')}
-                            className="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-500/10 to-purple-600/10 border border-cyan-500/20 text-cyan-400 text-sm font-semibold hover:from-cyan-500/20 hover:to-purple-600/20 transition-all"
+                          <Link
+                            to="/contact"
+                            onClick={handleNavClick}
+                            className="w-full inline-block py-2.5 rounded-xl bg-gradient-to-r from-cyan-500/10 to-purple-600/10 border border-cyan-500/20 text-cyan-400 text-sm font-semibold hover:from-cyan-500/20 hover:to-purple-600/20 transition-all text-center"
                           >
                             {language === 'ar' ? '← محدد الحل الأمثل' : 'Solution Finder →'}
-                          </button>
+                          </Link>
                         </div>
                       </div>
                     </motion.div>
@@ -149,8 +168,9 @@ export default function Navigation() {
                 </AnimatePresence>
               </div>
 
-              <button
-                onClick={() => document.querySelector('#finder')?.scrollIntoView({ behavior: 'smooth' })}
+              <Link
+                to="/contact"
+                onClick={handleNavClick}
                 className="relative group flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold text-white overflow-hidden"
                 style={{
                   background: 'linear-gradient(135deg, rgba(6,182,212,0.15), rgba(147,51,234,0.15))',
@@ -179,10 +199,10 @@ export default function Navigation() {
                 />
                 <CalendarCheck className="w-4 h-4 relative z-10 text-cyan-400" />
                 <span className="relative z-10 text-white">{language === 'ar' ? 'احجز استشارة' : 'Book a Lab Consultation'}</span>
-              </button>
+              </Link>
 
               <motion.button
-                onClick={toggleLanguage}
+                onClick={handleLanguageToggle}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/12 text-gray-300 text-sm font-bold hover:bg-white/10 hover:border-white/20 hover:text-white transition-all"
@@ -251,7 +271,7 @@ export default function Navigation() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.7 }}
-                onClick={toggleLanguage}
+                onClick={handleLanguageToggle}
                 className="mt-6 flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/20 transition-all"
               >
                 <Globe className="w-4 h-4" />

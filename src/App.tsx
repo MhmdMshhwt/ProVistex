@@ -1,24 +1,20 @@
-import { lazy, Suspense } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import Navigation from './components/Navigation';
 import ScrollProgressBar from './components/ScrollProgressBar';
 import CustomCursor from './components/CustomCursor';
 import LabStatus from './components/LabStatus';
-import Hero from './components/Hero';
+import Footer from './components/Footer';
+import { LanguageProvider } from './contexts/LanguageContext';
 
-const About = lazy(() => import('./components/About'));
-const Statistics = lazy(() => import('./components/Statistics'));
-const Services = lazy(() => import('./components/Services'));
-const FeaturedEmpires = lazy(() => import('./components/FeaturedEmpires'));
-const LabProcess = lazy(() => import('./components/LabProcess'));
-const SolutionsGrid = lazy(() => import('./components/SolutionsGrid'));
-const TechStackMarquee = lazy(() => import('./components/TechStackMarquee'));
-const GlobalReach = lazy(() => import('./components/GlobalReach'));
-const SolutionFinder = lazy(() => import('./components/SolutionFinder'));
-const Testimonials = lazy(() => import('./components/Testimonials'));
-const TrustedBy = lazy(() => import('./components/TrustedBy'));
-const Blog = lazy(() => import('./components/Blog'));
-const Contact = lazy(() => import('./components/Contact'));
-const Footer = lazy(() => import('./components/Footer'));
+const HomePage = lazy(() => import('./pages/HomePage'));
+const ServicesHub = lazy(() => import('./pages/ServicesHub'));
+const SoftwareEngineeringPage = lazy(() => import('./pages/SoftwareEngineeringPage'));
+const AIIntelligencePage = lazy(() => import('./pages/AIIntelligencePage'));
+const CloudCyberPage = lazy(() => import('./pages/CloudCyberPage'));
+const DigitalDesignPage = lazy(() => import('./pages/DigitalDesignPage'));
+const PortfolioPage = lazy(() => import('./pages/PortfolioPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
 
 function SectionFallback() {
   return (
@@ -28,59 +24,47 @@ function SectionFallback() {
   );
 }
 
+function AppContent() {
+  const [savedLanguage, setSavedLanguage] = useState<'en' | 'ar'>(() => {
+    return (localStorage.getItem('language') as 'en' | 'ar') || 'en';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('language', savedLanguage);
+  }, [savedLanguage]);
+
+  return (
+    <LanguageProvider initialLanguage={savedLanguage}>
+      <div className="min-h-screen bg-[#050505]">
+        <div className="scanline-overlay" />
+        <div className="noise-overlay" />
+        <ScrollProgressBar />
+        <CustomCursor />
+        <LabStatus />
+        <Navigation onLanguageChange={setSavedLanguage} />
+        <Suspense fallback={<SectionFallback />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/services" element={<ServicesHub />} />
+            <Route path="/services/software-engineering" element={<SoftwareEngineeringPage />} />
+            <Route path="/services/ai-intelligence" element={<AIIntelligencePage />} />
+            <Route path="/services/cloud-cyber" element={<CloudCyberPage />} />
+            <Route path="/services/digital-design" element={<DigitalDesignPage />} />
+            <Route path="/portfolio" element={<PortfolioPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Routes>
+        </Suspense>
+        <Footer />
+      </div>
+    </LanguageProvider>
+  );
+}
+
 function App() {
   return (
-    <div className="min-h-screen bg-[#050505]">
-      <div className="scanline-overlay" />
-      <div className="noise-overlay" />
-      <ScrollProgressBar />
-      <CustomCursor />
-      <LabStatus />
-      <Navigation />
-      <Hero />
-      <Suspense fallback={<SectionFallback />}>
-        <About />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <Statistics />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <Services />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <FeaturedEmpires />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <LabProcess />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <SolutionsGrid />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <TechStackMarquee />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <GlobalReach />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <SolutionFinder />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <Testimonials />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <TrustedBy />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <Blog />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <Contact />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <Footer />
-      </Suspense>
-    </div>
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   );
 }
 
