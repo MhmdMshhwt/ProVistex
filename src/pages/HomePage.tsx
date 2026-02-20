@@ -10,6 +10,7 @@ import TechStackMarquee from '../components/TechStackMarquee';
 import GlobalReach from '../components/GlobalReach';
 import Testimonials from '../components/Testimonials';
 import TrustedBy from '../components/TrustedBy';
+import VerifiedBadges from '../components/VerifiedBadges';
 
 const Blog = lazy(() => import('../components/Blog'));
 
@@ -25,6 +26,8 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <TrustedBy />
+      <VerifiedBadges />
       <About />
       <Statistics />
       <ServiceOverview />
@@ -34,7 +37,6 @@ export default function HomePage() {
       <TechStackMarquee />
       <GlobalReach />
       <Testimonials />
-      <TrustedBy />
       <Suspense fallback={<SectionFallback />}>
         <Blog />
       </Suspense>

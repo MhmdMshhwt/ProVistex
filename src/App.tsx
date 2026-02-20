@@ -5,6 +5,8 @@ import ScrollProgressBar from './components/ScrollProgressBar';
 import CustomCursor from './components/CustomCursor';
 import LabStatus from './components/LabStatus';
 import Footer from './components/Footer';
+import AICallModal from './components/AICallModal';
+import LeadMagnetPopup from './components/LeadMagnetPopup';
 import { LanguageProvider } from './contexts/LanguageContext';
 
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -28,6 +30,7 @@ function AppContent() {
   const [savedLanguage, setSavedLanguage] = useState<'en' | 'ar'>(() => {
     return (localStorage.getItem('language') as 'en' | 'ar') || 'en';
   });
+  const [isAICallOpen, setIsAICallOpen] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('language', savedLanguage);
@@ -41,7 +44,10 @@ function AppContent() {
         <ScrollProgressBar />
         <CustomCursor />
         <LabStatus />
-        <Navigation onLanguageChange={setSavedLanguage} />
+        <Navigation
+          onLanguageChange={setSavedLanguage}
+          onOpenAICall={() => setIsAICallOpen(true)}
+        />
         <Suspense fallback={<SectionFallback />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -55,6 +61,8 @@ function AppContent() {
           </Routes>
         </Suspense>
         <Footer />
+        <AICallModal isOpen={isAICallOpen} onClose={() => setIsAICallOpen(false)} />
+        <LeadMagnetPopup />
       </div>
     </LanguageProvider>
   );

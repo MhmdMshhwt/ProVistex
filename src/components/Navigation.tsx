@@ -1,22 +1,22 @@
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X, Globe, ChevronDown, Code2, Brain, Shield, Cloud, CalendarCheck } from 'lucide-react';
+import { Menu, X, Globe, ChevronDown, Code2, Brain, Shield, Cloud, Headphones } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
-import { useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 const wingGradients = [
   'from-cyan-500 to-blue-600',
-  'from-purple-500 to-pink-600',
+  'from-emerald-500 to-teal-600',
   'from-red-500 to-orange-500',
   'from-blue-500 to-cyan-600',
 ];
 
 interface NavigationProps {
   onLanguageChange?: (lang: 'en' | 'ar') => void;
+  onOpenAICall?: () => void;
 }
 
-export default function Navigation({ onLanguageChange }: NavigationProps) {
+export default function Navigation({ onLanguageChange, onOpenAICall }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
@@ -48,6 +48,11 @@ export default function Navigation({ onLanguageChange }: NavigationProps) {
     return () => document.removeEventListener('mousedown', handleClick);
   }, []);
 
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+    setIsMegaMenuOpen(false);
+  }, [location.pathname]);
+
   const wingIcons = [Code2, Brain, Shield, Cloud];
 
   const wings = [
@@ -56,6 +61,8 @@ export default function Navigation({ onLanguageChange }: NavigationProps) {
     { num: '03', titleKey: 'wing3_title', shortKey: 'wing3_short', gradient: wingGradients[2], Icon: wingIcons[2] },
     { num: '04', titleKey: 'wing4_title', shortKey: 'wing4_short', gradient: wingGradients[3], Icon: wingIcons[3] },
   ];
+
+  const wingPaths = ['/services/software-engineering', '/services/ai-intelligence', '/services/cloud-cyber', '/services/digital-design'];
 
   const navLinks = [
     { key: 'nav_home', path: '/' },
@@ -81,28 +88,32 @@ export default function Navigation({ onLanguageChange }: NavigationProps) {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-16 sm:h-20">
             <Link to="/" onClick={handleNavClick}>
               <motion.div className="flex items-center gap-2 cursor-pointer" whileHover={{ scale: 1.04 }}>
-                <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-black text-base">PV</span>
+                <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-black text-sm sm:text-base">PV</span>
                 </div>
-                <span className="text-white font-black text-xl tracking-tight">
+                <span className="text-white font-black text-lg sm:text-xl tracking-tight">
                   Pro<span className="text-cyan-400">Vistex</span>
                 </span>
               </motion.div>
             </Link>
 
-            <div className="hidden md:flex items-center gap-6">
+            <div className="hidden lg:flex items-center gap-5">
               {navLinks.map((link) => (
                 <Link
                   key={link.key}
                   to={link.path}
                   onClick={handleNavClick}
-                  className="text-gray-300 hover:text-cyan-400 transition-colors duration-200 font-medium text-sm relative group"
+                  className={`text-sm font-medium relative group transition-colors duration-200 ${
+                    location.pathname === link.path ? 'text-cyan-400' : 'text-gray-300 hover:text-cyan-400'
+                  }`}
                 >
                   {t(link.key)}
-                  <span className="absolute -bottom-0.5 start-0 w-0 h-px bg-gradient-to-r from-cyan-500 to-purple-600 group-hover:w-full transition-all duration-300"></span>
+                  <span className={`absolute -bottom-0.5 start-0 h-px bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-300 ${
+                    location.pathname === link.path ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`} />
                 </Link>
               ))}
 
@@ -111,7 +122,7 @@ export default function Navigation({ onLanguageChange }: NavigationProps) {
                   onClick={() => setIsMegaMenuOpen((v) => !v)}
                   className={`flex items-center gap-1.5 text-sm font-medium transition-colors duration-200 ${isMegaMenuOpen ? 'text-cyan-400' : 'text-gray-300 hover:text-cyan-400'}`}
                 >
-                  {t('nav_services')}
+                  {t('nav_wings_label')}
                   <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isMegaMenuOpen ? 'rotate-180' : ''}`} />
                 </button>
 
@@ -130,15 +141,13 @@ export default function Navigation({ onLanguageChange }: NavigationProps) {
                           {t('nav_wings_label')}
                         </div>
                         <div className="grid grid-cols-2 gap-2">
-                          {wings.map((wing, idx) => {
-                            const wingPaths = ['/services/software-engineering', '/services/ai-intelligence', '/services/cloud-cyber', '/services/digital-design'];
-                            return (
-                              <Link
-                                key={wing.num}
-                                to={wingPaths[parseInt(wing.num) - 1]}
-                                onClick={handleNavClick}
-                                className="group text-start rtl:text-end flex items-start gap-3 p-3.5 rounded-xl hover:bg-white/4 border border-transparent hover:border-cyan-500/20 transition-all"
-                              >
+                          {wings.map((wing) => (
+                            <Link
+                              key={wing.num}
+                              to={wingPaths[parseInt(wing.num) - 1]}
+                              onClick={handleNavClick}
+                              className="group text-start rtl:text-end flex items-start gap-3 p-3.5 rounded-xl hover:bg-white/4 border border-transparent hover:border-cyan-500/20 transition-all"
+                            >
                               <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${wing.gradient} p-px flex-shrink-0 group-hover:scale-105 transition-transform`}>
                                 <div className="w-full h-full bg-black/80 rounded-lg flex items-center justify-center">
                                   <wing.Icon className="w-4 h-4 text-white" />
@@ -149,17 +158,16 @@ export default function Navigation({ onLanguageChange }: NavigationProps) {
                                 <div className="text-white font-bold text-sm group-hover:text-cyan-400 transition-colors truncate">{t(wing.titleKey)}</div>
                                 <div className="text-gray-500 text-xs mt-0.5 truncate">{t(wing.shortKey)}</div>
                               </div>
-                              </Link>
-                            );
-                          })}
+                            </Link>
+                          ))}
                         </div>
                         <div className="mt-3 pt-3 border-t border-cyan-500/10">
                           <Link
                             to="/contact"
                             onClick={handleNavClick}
-                            className="w-full inline-block py-2.5 rounded-xl bg-gradient-to-r from-cyan-500/10 to-purple-600/10 border border-cyan-500/20 text-cyan-400 text-sm font-semibold hover:from-cyan-500/20 hover:to-purple-600/20 transition-all text-center"
+                            className="w-full inline-block py-2.5 rounded-xl bg-gradient-to-r from-cyan-500/10 to-blue-600/10 border border-cyan-500/20 text-cyan-400 text-sm font-semibold hover:from-cyan-500/20 hover:to-blue-600/20 transition-all text-center"
                           >
-                            {language === 'ar' ? '← محدد الحل الأمثل' : 'Solution Finder →'}
+                            {language === 'ar' ? 'محدد الحل الأمثل ←' : 'Solution Finder →'}
                           </Link>
                         </div>
                       </div>
@@ -168,95 +176,107 @@ export default function Navigation({ onLanguageChange }: NavigationProps) {
                 </AnimatePresence>
               </div>
 
-              <Link
-                to="/contact"
-                onClick={handleNavClick}
-                className="relative group flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold text-white overflow-hidden"
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={onOpenAICall}
+                className="relative group flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold text-white overflow-hidden consultation-btn-border"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(6,182,212,0.15), rgba(147,51,234,0.15))',
-                  border: '1px solid transparent',
-                  backgroundClip: 'padding-box',
+                  background: 'linear-gradient(135deg, rgba(6,182,212,0.15), rgba(59,130,246,0.15))',
                 }}
               >
-                <div className="absolute inset-0 rounded-xl border border-transparent"
-                  style={{
-                    background: 'linear-gradient(135deg, #06b6d4, #9333ea) border-box',
-                    WebkitMask: 'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)',
-                    WebkitMaskComposite: 'destination-out',
-                    maskComposite: 'exclude',
-                    animation: 'border-glow 2s ease-in-out infinite',
-                  }} />
                 <motion.div
                   className="absolute inset-0 rounded-xl"
                   animate={{
                     background: [
-                      'linear-gradient(135deg, rgba(6,182,212,0.15), rgba(147,51,234,0.15))',
-                      'linear-gradient(135deg, rgba(6,182,212,0.25), rgba(147,51,234,0.25))',
-                      'linear-gradient(135deg, rgba(6,182,212,0.15), rgba(147,51,234,0.15))',
+                      'linear-gradient(135deg, rgba(6,182,212,0.15), rgba(59,130,246,0.15))',
+                      'linear-gradient(135deg, rgba(6,182,212,0.25), rgba(59,130,246,0.25))',
+                      'linear-gradient(135deg, rgba(6,182,212,0.15), rgba(59,130,246,0.15))',
                     ],
                   }}
                   transition={{ duration: 2, repeat: Infinity }}
                 />
-                <CalendarCheck className="w-4 h-4 relative z-10 text-cyan-400" />
-                <span className="relative z-10 text-white">{language === 'ar' ? 'احجز استشارة' : 'Book a Lab Consultation'}</span>
-              </Link>
+                <Headphones className="w-4 h-4 relative z-10 text-cyan-400" />
+                <span className="relative z-10 text-white hidden xl:inline">{t('ai_call_nav')}</span>
+                <span className="relative z-10 text-white xl:hidden">{language === 'ar' ? 'استشارة' : 'AI Call'}</span>
+                <span className="relative z-10 w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              </motion.button>
 
               <motion.button
                 onClick={handleLanguageToggle}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/12 text-gray-300 text-sm font-bold hover:bg-white/10 hover:border-white/20 hover:text-white transition-all"
+                className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-white/5 border border-white/12 text-gray-300 text-sm font-bold hover:bg-white/10 hover:border-white/20 hover:text-white transition-all"
               >
                 <Globe className="w-4 h-4" />
                 <span className="font-mono text-xs tracking-wider">{language === 'en' ? 'AR' : 'EN'}</span>
-                <span className="text-gray-600 text-xs hidden sm:block">{language === 'en' ? 'عربي' : 'English'}</span>
               </motion.button>
             </div>
 
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden text-white p-2 hover:bg-cyan-500/10 rounded-lg transition-colors"
-            >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            <div className="flex items-center gap-2 lg:hidden">
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                onClick={onOpenAICall}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold"
+              >
+                <Headphones className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">{language === 'ar' ? 'استشارة' : 'AI Call'}</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              </motion.button>
+
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-white p-2 hover:bg-cyan-500/10 rounded-lg transition-colors"
+              >
+                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
           </div>
         </div>
       </motion.nav>
 
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: language === 'ar' ? 300 : -300 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: language === 'ar' ? 300 : -300 }}
-            transition={{ type: 'spring', damping: 25 }}
-            className="fixed inset-y-0 end-0 z-40 w-72 bg-black/97 backdrop-blur-xl border-s border-cyan-500/20 md:hidden overflow-y-auto"
-          >
-            <div className="flex flex-col pt-24 px-6 pb-10">
-              {navLinks.map((link, index) => (
-                <motion.div
-                  key={link.key}
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.08 }}
-                >
-                  <Link
-                    to={link.path}
-                    onClick={handleNavClick}
-                    className="block text-gray-300 hover:text-cyan-400 py-4 text-base font-medium border-b border-gray-800/60 hover:border-cyan-500/30 transition-all text-start rtl:text-end"
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+            <motion.div
+              initial={{ opacity: 0, x: language === 'ar' ? -300 : 300 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: language === 'ar' ? -300 : 300 }}
+              transition={{ type: 'spring', damping: 25 }}
+              className="fixed inset-y-0 end-0 z-40 w-72 bg-[#0a0a0a]/98 backdrop-blur-xl border-s border-cyan-500/20 lg:hidden overflow-y-auto"
+            >
+              <div className="flex flex-col pt-20 px-6 pb-10">
+                {navLinks.map((link, index) => (
+                  <motion.div
+                    key={link.key}
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.08 }}
                   >
-                    {t(link.key)}
-                  </Link>
-                </motion.div>
-              ))}
+                    <Link
+                      to={link.path}
+                      onClick={handleNavClick}
+                      className={`block py-4 text-base font-medium border-b border-gray-800/60 transition-all text-start rtl:text-end ${
+                        location.pathname === link.path ? 'text-cyan-400 border-cyan-500/30' : 'text-gray-300 hover:text-cyan-400 hover:border-cyan-500/30'
+                      }`}
+                    >
+                      {t(link.key)}
+                    </Link>
+                  </motion.div>
+                ))}
 
-              <div className="mt-5">
-                <div className="text-xs text-cyan-600 font-mono uppercase tracking-widest mb-3 opacity-70">
-                  {t('nav_wings_label')}
-                </div>
-                {wings.map((wing, i) => {
-                  const wingPaths = ['/services/software-engineering', '/services/ai-intelligence', '/services/cloud-cyber', '/services/digital-design'];
-                  return (
+                <div className="mt-5">
+                  <div className="text-xs text-cyan-600 font-mono uppercase tracking-widest mb-3 opacity-70">
+                    {t('nav_wings_label')}
+                  </div>
+                  {wings.map((wing, i) => (
                     <motion.div
                       key={wing.num}
                       initial={{ opacity: 0, x: 30 }}
@@ -274,22 +294,22 @@ export default function Navigation({ onLanguageChange }: NavigationProps) {
                         <span className="text-sm font-medium">{t(wing.titleKey)}</span>
                       </Link>
                     </motion.div>
-                  );
-                })}
-              </div>
+                  ))}
+                </div>
 
-              <motion.button
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.7 }}
-                onClick={handleLanguageToggle}
-                className="mt-6 flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/20 transition-all"
-              >
-                <Globe className="w-4 h-4" />
-                <span className="font-medium">{language === 'en' ? 'العربية' : 'English'}</span>
-              </motion.button>
-            </div>
-          </motion.div>
+                <motion.button
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.7 }}
+                  onClick={handleLanguageToggle}
+                  className="mt-6 flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/20 transition-all"
+                >
+                  <Globe className="w-4 h-4" />
+                  <span className="font-medium">{language === 'en' ? 'العربية' : 'English'}</span>
+                </motion.button>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>

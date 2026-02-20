@@ -107,7 +107,7 @@
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(135deg, #06b6d4, #9333ea);
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
     -webkit-mask:
       linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
