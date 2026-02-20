@@ -1,15 +1,29 @@
+import { lazy, Suspense } from 'react';
 import Navigation from './components/Navigation';
 import ScrollProgressBar from './components/ScrollProgressBar';
 import CustomCursor from './components/CustomCursor';
 import Hero from './components/Hero';
-import About from './components/About';
-import Statistics from './components/Statistics';
-import Services from './components/Services';
-import Portfolio from './components/Portfolio';
-import TrustedBy from './components/TrustedBy';
-import Blog from './components/Blog';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+
+const About = lazy(() => import('./components/About'));
+const Statistics = lazy(() => import('./components/Statistics'));
+const Services = lazy(() => import('./components/Services'));
+const SolutionsGrid = lazy(() => import('./components/SolutionsGrid'));
+const TechStackMarquee = lazy(() => import('./components/TechStackMarquee'));
+const GlobalReach = lazy(() => import('./components/GlobalReach'));
+const SolutionFinder = lazy(() => import('./components/SolutionFinder'));
+const Portfolio = lazy(() => import('./components/Portfolio'));
+const TrustedBy = lazy(() => import('./components/TrustedBy'));
+const Blog = lazy(() => import('./components/Blog'));
+const Contact = lazy(() => import('./components/Contact'));
+const Footer = lazy(() => import('./components/Footer'));
+
+function SectionFallback() {
+  return (
+    <div className="py-32 flex items-center justify-center">
+      <div className="w-8 h-8 border-2 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin" />
+    </div>
+  );
+}
 
 function App() {
   return (
@@ -20,14 +34,42 @@ function App() {
       <CustomCursor />
       <Navigation />
       <Hero />
-      <About />
-      <Statistics />
-      <Services />
-      <Portfolio />
-      <TrustedBy />
-      <Blog />
-      <Contact />
-      <Footer />
+      <Suspense fallback={<SectionFallback />}>
+        <About />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <Statistics />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <Services />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <SolutionsGrid />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <TechStackMarquee />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <GlobalReach />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <SolutionFinder />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <Portfolio />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <TrustedBy />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <Blog />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <Contact />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <Footer />
+      </Suspense>
     </div>
   );
 }
