@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check, ArrowRight, AlertTriangle, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Breadcrumb from '../components/Breadcrumb';
 import VideoHero from '../components/VideoHero';
@@ -14,6 +14,8 @@ interface ServicePageProps {
   capabilitiesKeys: string[];
   gradient: string;
   glowColor: string;
+  problemKey: string;
+  solutionKey: string;
   videoUrl?: string;
 }
 
@@ -24,6 +26,8 @@ export default function ServicePage({
   capabilitiesKeys,
   gradient,
   glowColor,
+  problemKey,
+  solutionKey,
   videoUrl,
 }: ServicePageProps) {
   const { t, language } = useLanguage();
@@ -43,7 +47,7 @@ export default function ServicePage({
             transition={{ duration: 0.8 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 mb-6`}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 mb-6"
               style={{ background: `linear-gradient(135deg, ${glowColor}10, transparent)` }}
             >
               <div className="w-2 h-2 rounded-full" style={{ backgroundColor: glowColor }} />
@@ -80,7 +84,75 @@ export default function ServicePage({
       </section>
 
       <section className="relative py-20 sm:py-28 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-black to-cyan-950/5" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent" />
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-14"
+          >
+            <div className="text-xs text-cyan-500 font-mono uppercase tracking-widest mb-4 opacity-70">
+              {language === 'ar' ? 'لماذا تحتاجنا' : 'WHY YOU NEED US'}
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-black text-white">
+              {t('problem_title')} <span className="text-gray-500">&</span> {t('solution_title')}
+            </h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <motion.div
+              initial={{ opacity: 0, x: language === 'ar' ? 40 : -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7 }}
+              viewport={{ once: true }}
+              className="relative p-6 sm:p-8 rounded-2xl bg-red-500/[0.04] border border-red-500/15 hover:border-red-500/25 transition-all"
+            >
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-10 h-10 rounded-xl bg-red-500/15 flex items-center justify-center">
+                  <AlertTriangle className="w-5 h-5 text-red-400" />
+                </div>
+                <div>
+                  <h3 className="text-white font-black text-lg">{t('problem_title')}</h3>
+                  <p className="text-red-400/60 text-xs font-mono">{t('problem_subtitle')}</p>
+                </div>
+              </div>
+              <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
+                {t(problemKey)}
+              </p>
+              <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-red-500/30 to-transparent" />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: language === 'ar' ? -40 : 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+              viewport={{ once: true }}
+              className="relative p-6 sm:p-8 rounded-2xl bg-emerald-500/[0.04] border border-emerald-500/15 hover:border-emerald-500/25 transition-all"
+            >
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/15 flex items-center justify-center">
+                  <Zap className="w-5 h-5 text-emerald-400" />
+                </div>
+                <div>
+                  <h3 className="text-white font-black text-lg">{t('solution_title')}</h3>
+                  <p className="text-emerald-400/60 text-xs font-mono">
+                    {language === 'ar' ? 'هكذا نحلّها' : 'Here\'s how we fix it'}
+                  </p>
+                </div>
+              </div>
+              <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
+                {t(solutionKey)}
+              </p>
+              <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent" />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative py-20 sm:py-28 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-cyan-950/5" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div

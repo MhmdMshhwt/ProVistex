@@ -6,12 +6,13 @@ import ServiceOverview from '../components/ServiceOverview';
 import FeaturedEmpires from '../components/FeaturedEmpires';
 import LabProcess from '../components/LabProcess';
 import SolutionsGrid from '../components/SolutionsGrid';
-import TechStackMarquee from '../components/TechStackMarquee';
 import GlobalReach from '../components/GlobalReach';
-import Testimonials from '../components/Testimonials';
 import TrustedBy from '../components/TrustedBy';
 import VerifiedBadges from '../components/VerifiedBadges';
+import PricingTable from '../components/PricingTable';
 
+const TechStackMarquee = lazy(() => import('../components/TechStackMarquee'));
+const Testimonials = lazy(() => import('../components/Testimonials'));
 const Blog = lazy(() => import('../components/Blog'));
 
 function SectionFallback() {
@@ -31,12 +32,17 @@ export default function HomePage() {
       <About />
       <Statistics />
       <ServiceOverview />
+      <PricingTable />
       <FeaturedEmpires />
       <LabProcess />
       <SolutionsGrid />
-      <TechStackMarquee />
+      <Suspense fallback={<SectionFallback />}>
+        <TechStackMarquee />
+      </Suspense>
       <GlobalReach />
-      <Testimonials />
+      <Suspense fallback={<SectionFallback />}>
+        <Testimonials />
+      </Suspense>
       <Suspense fallback={<SectionFallback />}>
         <Blog />
       </Suspense>

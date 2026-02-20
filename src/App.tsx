@@ -6,6 +6,7 @@ import CustomCursor from './components/CustomCursor';
 import LabStatus from './components/LabStatus';
 import Footer from './components/Footer';
 import AICallModal from './components/AICallModal';
+import AICallFAB from './components/AICallFAB';
 import LeadMagnetPopup from './components/LeadMagnetPopup';
 import { LanguageProvider } from './contexts/LanguageContext';
 
@@ -61,6 +62,7 @@ function AppContent() {
           </Routes>
         </Suspense>
         <Footer />
+        <AICallFAB onClick={() => setIsAICallOpen(true)} />
         <AICallModal isOpen={isAICallOpen} onClose={() => setIsAICallOpen(false)} />
         <LeadMagnetPopup />
       </div>

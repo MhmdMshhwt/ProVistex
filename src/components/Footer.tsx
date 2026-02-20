@@ -46,7 +46,7 @@ export default function Footer() {
             viewport={{ once: true }}
           >
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <div className="w-9 h-9 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-black text-sm">PV</span>
               </div>
               <span className="text-white font-black text-xl">Pro<span className="text-cyan-400">Vistex</span></span>
@@ -130,7 +130,7 @@ export default function Footer() {
                     ? 'bg-gray-700 cursor-not-allowed text-white'
                     : subscribeStatus === 'success'
                     ? 'bg-emerald-600 text-white'
-                    : 'bg-gradient-to-r from-cyan-500 to-purple-600 text-white'
+                    : 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white'
                 }`}
               >
                 {isSubmitting ? (

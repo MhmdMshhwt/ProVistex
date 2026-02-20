@@ -12,8 +12,10 @@ export default function AIIntelligencePage() {
         'wing2_tag3',
         'wing2_tag4',
       ]}
-      gradient="from-purple-500 to-pink-600"
-      glowColor="#a855f7"
+      gradient="from-teal-500 to-emerald-600"
+      glowColor="#14b8a6"
+      problemKey="wing2_problem"
+      solutionKey="wing2_solution"
     />
   );
 }

@@ -14,6 +14,8 @@ export default function SoftwareEngineeringPage() {
       ]}
       gradient="from-cyan-500 to-blue-600"
       glowColor="#06b6d4"
+      problemKey="wing1_problem"
+      solutionKey="wing1_solution"
     />
   );
 }

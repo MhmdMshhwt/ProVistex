@@ -14,6 +14,8 @@ export default function CloudCyberPage() {
       ]}
       gradient="from-red-500 to-orange-500"
       glowColor="#ef4444"
+      problemKey="wing3_problem"
+      solutionKey="wing3_solution"
     />
   );
 }

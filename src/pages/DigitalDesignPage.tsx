@@ -14,6 +14,8 @@ export default function DigitalDesignPage() {
       ]}
       gradient="from-blue-500 to-cyan-600"
       glowColor="#3b82f6"
+      problemKey="wing4_problem"
+      solutionKey="wing4_solution"
     />
   );
 }
